@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Лазерный принтер HP LaserJet Pro M404dn",
             description: "Надежный монохромный принтер для малого и среднего офиса. Автоматическая двусторонняя печать.",
             price: "15 500 ₽",
-            imageUrl: "WhatsApp Image 2025-05-29 at 16.09.27.jpeg"
+            imageUrl: "WhatsApp_Image_2025-05-29_at_16.09.30__1_-removebg-preview.png"
         },
         {
             id: 2,
