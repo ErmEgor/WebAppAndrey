@@ -1,4 +1,3 @@
-/* style.css */
 :root {
     --primary-color: #007AFF; /* Синий акцент, как в iOS */
     --text-color: #1c1c1e; /* Темно-серый для текста */
@@ -70,7 +69,7 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Чтобы вращающаяся картинка не вылезала за пределы карточки */
+    overflow: hidden; /* Чтобы вращающаяся картинка не вылезала */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -81,23 +80,12 @@ body {
 
 .product-image-container {
     width: 100%;
-    padding-bottom: 75%; /* Соотношение сторон 4:3 для изображения */
+    padding-bottom: 75%; /* Соотношение сторон 4:3 для изображения, можно изменить */
     position: relative;
     margin-bottom: 15px;
     border-radius: 8px;
-    overflow: hidden; /* Скрывает части изображения, выходящие за контейнер при вращении */
-    
-    /* --- Ключевое свойство для создания 3D-сцены для дочерних элементов --- */
-    perspective: 800px; 
-    /* 
-       perspective: 800px; Задает глубину 3D-сцены.
-       Меньшее значение (например, 500px) даст более выраженный, "агрессивный" 3D-эффект.
-       Большее значение (как 800px или 1000px) делает эффект более тонким, как будто вы смотрите издалека.
-       Ваш комментарий "Увеличиваем перспективу для большего 3D-эффекта" немного контринтуитивен;
-       обычно для "большего" (т.е. более заметного) эффекта значение уменьшают.
-       Но 800px - вполне рабочее значение для умеренного эффекта.
-    */
-    /* perspective-origin: center center; (это значение по умолчанию, его можно не указывать) */
+    overflow: hidden; /* Чтобы скрыть части изображения при вращении */
+    perspective: 1000px; /* Для 3D эффекта вращения */
 }
 
 .product-image {
@@ -106,67 +94,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Масштабирует изображение, сохраняя пропорции */
     border-radius: 8px;
-    
-    /* --- Ключевые свойства для 3D-трансформации самого элемента --- */
-    transform-style: preserve-3d; 
-    /* 
-       transform-style: preserve-3d; Важно, если бы у этого элемента были дочерние элементы,
-       которые также трансформируются в 3D. Для трансформации самого .product-image в 3D-пространстве,
-       созданном родителем (.product-image-container с `perspective`), это свойство не является первостепенным,
-       но его включение не вредит и является хорошей практикой для сложных 3D-сцен.
-    */
-    /* transform-origin: center center; (по умолчанию, отлично подходит для вращения вокруг центра) */
-    
-    /* Используем обновленную анимацию rotateImage3D */
-    animation: rotateImage3D var(--animation-duration) infinite linear;
+    transform-style: preserve-3d; /* Необходимо для 3D трансформаций дочерних элементов */
+    animation: rotateImage var(--animation-duration) infinite linear;
 }
 
-/* --- Обновленные @keyframes для более объемного 3D вращения --- */
-@keyframes rotateImage3D {
-    0% {
-        transform: rotateX(0deg) rotateY(0deg) scale(1);
-    }
-    25% {
-        /* Вращаем по Y и немного наклоняем по X для ощущения "переворота" и объема */
-        transform: rotateX(-20deg) rotateY(90deg) scale(1.03); 
-    }
-    50% {
-        /* Полный оборот по Y (картинка повернута назад), возвращаем наклон по X к нулю */
-        transform: rotateX(0deg) rotateY(180deg) scale(1);
-    }
-    75% {
-        /* Вращаем дальше по Y и наклоняем по X в другую сторону */
-        transform: rotateX(20deg) rotateY(270deg) scale(1.03);
-    }
-    100% {
-        /* Завершаем цикл, возвращаясь в исходное положение */
-        transform: rotateX(0deg) rotateY(360deg) scale(1);
-    }
-}
-
-/* 
-   Это ваша старая анимация. Я ее закомментировал, чтобы вы могли легко сравнить
-   или вернуться к ней при необходимости.
 @keyframes rotateImage {
     0% {
-        transform: rotateY(0deg) scale(1);
-    }
-    25% {
-        transform: rotateY(90deg) scale(1.05); 
-    }
-    50% {
-        transform: rotateY(180deg) scale(1);
-    }
-    75% {
-        transform: rotateY(270deg) scale(1.05); 
+        transform: rotateY(0deg);
     }
     100% {
-        transform: rotateY(360deg) scale(1);
+        transform: rotateY(360deg);
     }
 }
-*/
 
 .product-name {
     font-size: 1.1em;
